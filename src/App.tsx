@@ -1,30 +1,49 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Star, Users, Zap, BookOpen, Trophy, CheckCircle } from 'lucide-react';
 import Logo from './components/Logo';
+import { useState } from "react";
 
 export default function LearningLanding() {
-  const handleSubmit = async (
+const [submitting, setSubmitting] = useState(false);
+
+const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>
 ) => {
+
   e.preventDefault();
+
+  if (submitting) return;
+
+  setSubmitting(true);
 
   const form = e.currentTarget;
   const formData = new FormData(form);
 
   try {
+
     await fetch(
       "https://script.google.com/macros/s/AKfycbz2LF4UPeqobcLPaKZNtj6m4SXvR2L5Ey2uYFtmCwrwlvBuashAwQGB4yKf14pz639v/exec",
       {
         method: "POST",
-        body: formData,
+        mode: "no-cors",
+        body: formData
       }
     );
 
     alert("Registration submitted successfully!");
+
     form.reset();
-  } catch (error) {
-    console.error(error);
-    alert("Failed to submit registration.");
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Something went wrong. Please try again.");
+
+  } finally {
+
+    setSubmitting(false);
+
   }
 };
   return (
@@ -202,14 +221,15 @@ Submit your details and we'll reserve your seat. Your registration will be secur
                     <option value="Linux & Infrastructure">Linux & Infrastructure</option>
                   </select>
                 </div>
+<button
+  type="submit"
+  disabled={submitting}
+  className="btn-primary w-full inline-flex items-center justify-center gap-2 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  {submitting ? "Submitting..." : "Submit Registration"}
 
-                <button
-                  type="submit"
-                  className="btn-primary w-full inline-flex items-center justify-center gap-2 text-lg"
-                >
-                  Submit Registration
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+  <ArrowRight className="w-5 h-5" />
+</button>
               </form>
             </div>
           </div>
