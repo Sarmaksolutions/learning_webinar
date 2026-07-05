@@ -16,7 +16,6 @@ export default function LearningLanding() {
       "https://script.google.com/macros/s/AKfycbz2LF4UPeqobcLPaKZNtj6m4SXvR2L5Ey2uYFtmCwrwlvBuashAwQGB4yKf14pz639v/exec",
       {
         method: "POST",
-        mode: "no-cors",
         body: formData,
       }
     );
