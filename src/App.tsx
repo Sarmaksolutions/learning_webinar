@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles, Star, Users, Zap, BookOpen, Trophy, CheckCircle } from 'lucide-react';
 import Logo from './components/Logo';
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function LearningLanding() {
 const [submitting, setSubmitting] = useState(false);
+const isSubmittingRef = useRef(false); // instant guard, doesn't wait on a re-render
 
 const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>
@@ -12,7 +13,8 @@ const handleSubmit = async (
 
   e.preventDefault();
 
-  if (submitting) return;
+  if (isSubmittingRef.current) return;
+  isSubmittingRef.current = true;
 
   setSubmitting(true);
 
@@ -42,6 +44,7 @@ const handleSubmit = async (
 
   } finally {
 
+    isSubmittingRef.current = false;
     setSubmitting(false);
 
   }
