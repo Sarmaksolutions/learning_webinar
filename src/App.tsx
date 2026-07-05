@@ -3,6 +3,31 @@ import { ArrowRight, Sparkles, Star, Users, Zap, BookOpen, Trophy, CheckCircle }
 import Logo from './components/Logo';
 
 export default function LearningLanding() {
+  const handleSubmit = async (
+  e: React.FormEvent<HTMLFormElement>
+) => {
+  e.preventDefault();
+
+  const form = e.currentTarget;
+  const formData = new FormData(form);
+
+  try {
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbz2LF4UPeqobcLPaKZNtj6m4SXvR2L5Ey2uYFtmCwrwlvBuashAwQGB4yKf14pz639v/exec",
+      {
+        method: "POST",
+        mode: "no-cors",
+        body: formData,
+      }
+    );
+
+    alert("Registration submitted successfully!");
+    form.reset();
+  } catch (error) {
+    console.error(error);
+    alert("Failed to submit registration.");
+  }
+};
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1c1d1b] to-[#0d0e10] text-white overflow-hidden">
       {/* Navigation */}
@@ -104,7 +129,7 @@ export default function LearningLanding() {
                 <span className="text-gold text-sm font-medium uppercase tracking-widest">Secure your seat</span>
                 <h2 className="text-4xl md:text-5xl font-black">Register for the free SARMAK training</h2>
                 <p className="text-white/70 text-lg max-w-xl">
-                  Submit your details and we will reserve your seat. This Netlify form sends registration data directly to your Netlify dashboard for later review.
+Submit your details and we'll reserve your seat. Your registration will be securely recorded and our team will contact you with the next steps.
                 </p>
                 <ul className="grid gap-3 text-white/80">
                   {['Free training for fresh graduates', 'Limited 30 seats only', 'Resume review + mentor matching', 'Industry-ready curriculum'].map((item) => (
@@ -117,15 +142,10 @@ export default function LearningLanding() {
               </div>
 
               <form
-                name="Learning Registration"
-                method="POST"
-                action="/thank-you.html"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-                className="space-y-5 bg-[#0f1113] rounded-3xl border border-white/10 p-8"
-              >
-                <input type="hidden" name="form-name" value="Learning Registration" />
-                <input type="hidden" name="bot-field" />
+  onSubmit={handleSubmit}
+  className="space-y-5 bg-[#0f1113] rounded-3xl border border-white/10 p-8"
+>
+
 
                 <div>
                   <label className="text-sm font-medium text-white/70">Full Name</label>
