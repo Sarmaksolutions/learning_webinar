@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/coursedetails.tsx","./src/main.tsx"],"version":"5.9.3"}
+{"root":["./src/aitoolkit.tsx","./src/app.tsx","./src/bonuslearning.tsx","./src/certifications.tsx","./src/coursedetails.tsx","./src/dashboard.tsx","./src/livesessions.tsx","./src/login.tsx","./src/materials.tsx","./src/notifications.tsx","./src/profile.tsx","./src/progress.tsx","./src/reportbug.tsx","./src/seo.tsx","./src/schedule.tsx","./src/tools.tsx","./src/main.tsx","./src/components/logo.tsx","./src/components/pageshell.tsx","./src/lib/auth.ts"],"version":"5.9.3"}
