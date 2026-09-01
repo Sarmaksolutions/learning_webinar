@@ -13,6 +13,7 @@ const navItems = [
   { to: '/course-details', label: 'Full Course Details' },
   { to: '/profile', label: 'Profile' },
   { to: '/schedule', label: 'Schedule' },
+  { to: '/webinar', label: 'Webinar' },
   { to: '/materials', label: 'Materials' },
   { to: '/ai-toolkit', label: 'AI Tool Kit' },
   { to: '/certifications', label: 'Certifications' },

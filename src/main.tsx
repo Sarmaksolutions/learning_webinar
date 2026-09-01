@@ -17,6 +17,7 @@ import AiToolkit from './AiToolkit.tsx'
 import Certifications from './Certifications.tsx'
 import ReportBug from './ReportBug.tsx'
 import './index.css'
+import Webinar from "./Webinar.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/course-details" element={<CourseDetails />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/schedule" element={<Schedule />} />
+        <Route path="/webinar" element={<Webinar />} />
         <Route path="/materials" element={<Materials />} />
         <Route path="/progress" element={<Progress />} />
         <Route path="/tools" element={<Tools />} />
