@@ -7,6 +7,7 @@ import Login from './Login.tsx'
 import Dashboard from './Dashboard.tsx'
 import Profile from './Profile.tsx'
 import Schedule from './Schedule.tsx'
+import Webinar from './Webinar.tsx'
 import Materials from './Materials.tsx'
 import Progress from './Progress.tsx'
 import Tools from './Tools.tsx'
@@ -17,7 +18,7 @@ import AiToolkit from './AiToolkit.tsx'
 import Certifications from './Certifications.tsx'
 import ReportBug from './ReportBug.tsx'
 import './index.css'
-import Webinar from './Webinar.tsx';
+
 import PaymentSuccess from './PaymentSuccess.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
