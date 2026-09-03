@@ -17,8 +17,8 @@ import AiToolkit from './AiToolkit.tsx'
 import Certifications from './Certifications.tsx'
 import ReportBug from './ReportBug.tsx'
 import './index.css'
-import Webinar from "./Webinar.tsx";
-import PaymentSuccess from "./PaymentSuccess.tsx";
+import Webinar from './Webinar.tsx';
+import PaymentSuccess from './PaymentSuccess.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
