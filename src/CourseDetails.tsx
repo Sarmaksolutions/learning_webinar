@@ -1,293 +1,292 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import PageShell from './components/PageShell';
+import { 
+  BookOpen, Zap, Lock, CheckCircle, ArrowRight, 
+  Calendar, FileText, TrendingUp, Shield, Sparkles 
+} from 'lucide-react';
+import { getUserSession, UserSession } from './lib/auth';
+import Logo from './components/Logo';
+import SEO from './components/SEO';
 
-function CourseDetailsSection() {
+type CourseType = 'college' | 'advance' | null;
+
+const courseData = {
+  college: {
+    title: 'College Students Program',
+    subtitle: 'Foundation to Industry-Ready in 4 Weeks',
+    description: 'Designed specifically for college students and fresh graduates. Bridges the gap between academic learning and industry expectations with hands-on labs, real-world projects, and expert mentorship.',
+    icon: <BookOpen className="w-8 h-8 text-emerald-400" />,
+    color: 'from-emerald-500/20 to-teal-500/20',
+    borderColor: 'border-emerald-500/30',
+    details: {
+      curriculum: ['Week 1: Databases & SQL Fundamentals', 'Week 2: Linux & Infrastructure Basics', 'Week 3: DevOps & Containerization Intro', 'Week 4: AI & Agents Capstone Project'],
+      schedule: ['Mon/Wed: Live Theory Sessions (6:00 PM)', 'Fri: Hands-on Lab Workshops (6:00 PM)', 'Sat: Mentor Q&A and Project Review (11:00 AM)'],
+      materials: ['SQL Cheat Sheet & Practice DB', 'Linux Command Line Handbook', 'Docker Basics for Students', 'Resume Building Template'],
+      tools: ['GitHub Student Developer Pack', 'Free Cloud Credits (AWS/Azure)', 'Notion Workspace for Notes', 'Discord Community Access']
+    }
+  },
+  advance: {
+    title: 'Advance Course',
+    subtitle: 'Master Enterprise IT & AI Infrastructure',
+    description: 'An intensive, advanced track for working professionals or experienced learners. Dive deep into enterprise-grade infrastructure, advanced DevOps pipelines, AI agent deployment, and cloud architecture.',
+    icon: <Zap className="w-8 h-8 text-gold" />,
+    color: 'from-gold/20 to-amber-500/20',
+    borderColor: 'border-gold/30',
+    details: {
+      curriculum: ['Week 1: Advanced Cloud Architecture & Security', 'Week 2: CI/CD Pipelines & Kubernetes Orchestration', 'Week 3: Enterprise AI Agent Deployment', 'Week 4: Scalable Infrastructure & Monitoring'],
+      schedule: ['Tue/Thu: Advanced Concept Deep Dives (8:00 PM)', 'Sat: Live Architecture Review & Debugging (10:00 AM)', 'Sun: Optional 1-on-1 Mentorship Slots'],
+      materials: ['Enterprise Architecture Blueprints', 'Kubernetes Production Checklist', 'AI Security & Compliance Guide', 'Advanced Terraform Modules'],
+      tools: ['Enterprise GitHub/GitLab Access', 'Premium Cloud Sandbox Environments', 'Advanced Monitoring Dashboards (Grafana)', 'Private Slack Channel with Senior Engineers']
+    }
+  }
+};
+
+export default function CourseDetails() {
+  const [selectedCourse, setSelectedCourse] = useState<CourseType>(null);
+  const [session, setSession] = useState<UserSession | null>(null);
+
+  useEffect(() => {
+    const user = getUserSession();
+    setSession(user);
+  }, []);
+
+  const handleCourseSelect = (course: CourseType) => {
+    setSelectedCourse(course);
+    setTimeout(() => {
+      const element = document.getElementById('course-details-section');
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
   return (
-    <section id="course-details" className="py-20 bg-[#0d0e10] border-t border-white/10 mt-8">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <span className="text-gold text-sm font-medium uppercase tracking-widest mb-2 block">4-Week Technology Foundation Program</span>
-          <h2 className="text-4xl md:text-5xl font-black mb-4">4-Week Technology Foundation Program for College Graduates</h2>
-          <p className="text-white/70 max-w-3xl mx-auto">
-            This program is designed for fresh graduates who want a practical introduction to modern software engineering, infrastructure, databases, DevOps, and AI technologies.
+    <div className="min-h-screen bg-gradient-to-b from-[#1c1d1b] to-[#0d0e10] text-white">
+      <SEO 
+        title="Course Details - SARMAK Learning Portal" 
+        description="Explore our College Students Program and Advance IT Infrastructure Course. Login to access detailed curriculum, schedules, materials, and tools."
+        keywords="SARMAK courses, IT infrastructure training, college student IT course, advanced DevOps course, AI training, Sarmak Learning"
+      />
+      
+      {/* Navigation Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#1c1d1b]/95 backdrop-blur-xl border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-3 group">
+            <Logo className="h-10 w-auto transition-transform duration-300 group-hover:scale-105" />
+            <div className="hidden sm:block">
+              <span className="text-lg font-bold tracking-wider">SARMAK <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-lime-300">Learning</span></span>
+            </div>
+          </Link>
+          <div className="flex items-center gap-4">
+            {session ? (
+              <>
+                <span className="text-sm text-white/70 hidden sm:block">Welcome, {session.name}</span>
+                <Link to="/dashboard" className="btn-primary text-sm">Dashboard</Link>
+              </>
+            ) : (
+              <Link to="/login" className="btn-outline text-sm inline-flex items-center gap-2">
+                Login
+              </Link>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+        {/* Hero Section */}
+        <div className="text-center mb-16 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/20 text-gold text-sm font-bold uppercase tracking-widest mb-6">
+            <Sparkles className="w-4 h-4" /> Choose Your Learning Path
+          </div>
+          <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
+            Tailored IT Infrastructure <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-lime-300 to-emerald-500">Training Programs</span>
+          </h1>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            Select the program that matches your current level. Login to unlock full curriculum details, schedules, and exclusive resources.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 mb-16">
-          {[
-            { label: 'Duration', value: '4 Weeks' },
-            { label: 'Mode', value: 'Instructor-led + Hands-on Labs' },
-            { label: 'Daily Time', value: '4–6 hours' },
-            { label: 'Outcome', value: 'Industry-ready foundations' },
-          ].map((item) => (
-            <div key={item.label} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <p className="text-sm uppercase tracking-[0.25em] text-white/50 mb-2">{item.label}</p>
-              <p className="text-lg font-semibold text-white">{item.value}</p>
+        {/* Course Selection Cards */}
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
+          {(['college', 'advance'] as CourseType[]).map((courseKey) => {
+            const course = courseData[courseKey!];
+            const isSelected = selectedCourse === courseKey;
+            return (
+              <button
+                key={courseKey}
+                onClick={() => handleCourseSelect(courseKey)}
+                className={`relative group text-left rounded-3xl border p-8 transition-all duration-500 ease-out backdrop-blur-xl overflow-hidden
+                  ${isSelected 
+                    ? `${course.borderColor} bg-gradient-to-br ${course.color} shadow-2xl shadow-emerald-500/10 scale-[1.02]` 
+                    : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10 hover:scale-[1.01]'
+                  }`}
+              >
+                <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                  {course.icon}
+                </div>
+                <div className="relative z-10">
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 transition-colors duration-300
+                    ${isSelected ? 'bg-white/20' : 'bg-white/5'}`}>
+                    {course.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">{course.title}</h3>
+                  <p className="text-gold font-semibold mb-4">{course.subtitle}</p>
+                  <p className="text-white/70 text-sm leading-relaxed mb-6">{course.description}</p>
+                  
+                  <div className="flex items-center gap-2 text-sm font-semibold group-hover:gap-3 transition-all">
+                    <span>{isSelected ? 'Selected' : 'View Details'}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+                
+                {isSelected && (
+                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gold flex items-center justify-center animate-bounce-in">
+                    <CheckCircle className="w-5 h-5 text-[#1c1d1b]" />
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Course Details Section */}
+        {selectedCourse && (
+          <div id="course-details-section" className="animate-fade-in-up">
+            {!session ? (
+              <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-12 text-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none" />
+                <div className="relative z-10 max-w-2xl mx-auto">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gold/10 flex items-center justify-center">
+                    <Lock className="w-10 h-10 text-gold" />
+                  </div>
+                  <h3 className="text-3xl font-black mb-4">Unlock Full Course Details</h3>
+                  <p className="text-white/70 mb-8 text-lg">
+                    Login with your learner ID to access the complete curriculum, weekly schedule, exclusive training materials, and specialized tools for the <span className="text-gold font-semibold">{courseData[selectedCourse].title}</span>.
+                  </p>
+                  <Link 
+                    to="/login" 
+                    className="btn-primary text-lg inline-flex items-center gap-2 pulse-glow"
+                  >
+                    Login to Access Details
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                  <p className="mt-6 text-sm text-white/50">
+                    Don't have an account? <Link to="/" className="text-gold hover:underline">Register for free</Link>
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <CourseTabs courseKey={selectedCourse} data={courseData[selectedCourse]} />
+            )}
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
+
+// Sub-component for Tabs
+function CourseTabs({ courseKey, data }: { courseKey: CourseType, data: any }) {
+  const [activeTab, setActiveTab] = useState<'curriculum' | 'schedule' | 'materials' | 'tools'>('curriculum');
+
+  const tabs = [
+    { id: 'curriculum', label: 'Curriculum', icon: <BookOpen className="w-4 h-4" /> },
+    { id: 'schedule', label: 'Schedule', icon: <Calendar className="w-4 h-4" /> },
+    { id: 'materials', label: 'Materials', icon: <FileText className="w-4 h-4" /> },
+    { id: 'tools', label: 'Tools & Resources', icon: <TrendingUp className="w-4 h-4" /> },
+  ];
+
+  return (
+    <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden animate-fade-in">
+      <div className="flex overflow-x-auto border-b border-white/10 scrollbar-hide">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
+            className={`flex items-center gap-2 px-6 py-4 text-sm font-semibold whitespace-nowrap transition-all duration-300 border-b-2
+              ${activeTab === tab.id 
+                ? 'border-gold text-gold bg-gold/5' 
+                : 'border-transparent text-white/60 hover:text-white hover:bg-white/5'
+              }`}
+          >
+            {tab.icon}
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="p-8 md:p-12 min-h-[400px]">
+        {activeTab === 'curriculum' && (
+          <div className="space-y-4 animate-fade-in">
+            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              <Shield className="w-6 h-6 text-emerald-400" /> 
+              {courseKey === 'college' ? 'Foundation Curriculum' : 'Advanced Curriculum'}
+            </h3>
+            <div className="grid gap-4">
+              {data.details.curriculum.map((item: string, idx: number) => (
+                <div key={idx} className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-colors">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-sm">
+                    {idx + 1}
+                  </div>
+                  <p className="text-white/90 pt-1">{item}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        )}
 
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-8 mb-16">
-          <h3 className="text-2xl font-bold text-white mb-4">Program Goals</h3>
-          <ul className="grid gap-3 text-white/80">
-            {[
-              'Understand relational and NoSQL databases',
-              'Work confidently in Linux environments',
-              'Write and execute SQL queries',
-              'Understand DevOps workflows and CI/CD basics',
-              'Learn cloud-native concepts',
-              'Understand AI fundamentals and AI agents',
-              'Build mini projects using learned technologies',
-            ].map((goal) => (
-              <li key={goal} className="rounded-3xl bg-[#111214] p-4">{goal}</li>
-            ))}
-          </ul>
-        </div>
+        {activeTab === 'schedule' && (
+          <div className="space-y-4 animate-fade-in">
+            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              <Calendar className="w-6 h-6 text-gold" /> Weekly Schedule
+            </h3>
+            <div className="grid gap-4">
+              {data.details.schedule.map((item: string, idx: number) => (
+                <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold/30 transition-colors">
+                  <div className="flex-shrink-0 w-2 h-2 rounded-full bg-gold" />
+                  <p className="text-white/90">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-        <div className="space-y-10">
-          {[
-            {
-              title: 'Week 1 — Databases & Database Technologies',
-              objective: 'Build foundational understanding of data storage systems, relational databases, and modern NoSQL technologies.',
-              days: [
-                {
-                  label: 'Day 1 — Introduction to Databases',
-                  topics: [
-                    'What is a database?',
-                    'DBMS vs RDBMS',
-                    'Structured vs unstructured data',
-                    'ACID properties',
-                    'Transactions and concurrency',
-                  ],
-                  handsOn: ['Install MySQL Workbench', 'Install PostgreSQL', 'Create first database and tables'],
-                },
-                {
-                  label: 'Day 2 — Relational Databases',
-                  topics: [
-                    'Tables, rows, columns',
-                    'Primary key & foreign key',
-                    'Relationships: One-to-One, One-to-Many, Many-to-Many',
-                    'Normalization basics',
-                  ],
-                  handsOn: ['Design a Student Management schema'],
-                },
-                {
-                  label: 'Day 3 — SQL Fundamentals',
-                  topics: [
-                    'CRUD operations',
-                    'SELECT queries',
-                    'WHERE, ORDER BY, GROUP BY',
-                    'Aggregations',
-                    'JOINs',
-                  ],
-                  handsOn: ['Write 25+ SQL queries'],
-                },
-                {
-                  label: 'Day 4 — Advanced SQL Concepts',
-                  topics: [
-                    'Subqueries',
-                    'Views',
-                    'Stored procedures',
-                    'Indexing',
-                    'Transactions',
-                  ],
-                  handsOn: ['Optimize slow queries'],
-                },
-                {
-                  label: 'Day 5 — NoSQL Databases',
-                  topics: [
-                    'Why NoSQL?',
-                    'Types of NoSQL: Document DB, Key-Value, Columnar, Graph DB',
-                  ],
-                  technologies: ['MongoDB', 'Redis', 'Cassandra'],
-                  handsOn: ['Store JSON documents in MongoDB'],
-                },
-                {
-                  label: 'Day 6 — Database Project',
-                  topics: ['Library Management System OR Online Store Database'],
-                  handsOn: ['ER diagram', 'SQL scripts', 'CRUD queries'],
-                },
-              ],
-            },
-            {
-              title: 'Week 2 — Linux & SQL Basics',
-              objective: 'Learn Linux operating system fundamentals and practical SQL usage.',
-              days: [
-                {
-                  label: 'Day 1 — Linux Fundamentals',
-                  topics: ['What is Linux?', 'Linux distributions', 'File system structure', 'Shell basics'],
-                  handsOn: ['Install Ubuntu', 'Practice terminal commands'],
-                },
-                {
-                  label: 'Day 2 — Linux Commands',
-                  topics: ['File operations', 'Permissions', 'Users and groups', 'Pipes and redirection'],
-                  handsOn: ['Create shell-based workflows'],
-                },
-                {
-                  label: 'Day 3 — Shell Scripting Basics',
-                  topics: ['Variables', 'Loops', 'Conditions', 'Functions'],
-                  handsOn: ['Write automation scripts'],
-                },
-                {
-                  label: 'Day 4 — SQL Practice & Integration',
-                  topics: ['Connecting applications to DB', 'Import/export data', 'Backup and restore'],
-                  handsOn: ['Execute real-world queries', 'Generate reports'],
-                },
-                {
-                  label: 'Day 5 — Linux Administration Basics',
-                  topics: ['Process management', 'Package installation', 'Networking basics', 'SSH', 'Cron jobs'],
-                  handsOn: ['Setup Linux server environment'],
-                },
-                {
-                  label: 'Day 6 — Linux + SQL Project',
-                  topics: ['Automated backup system', 'SQL report generation script'],
-                  handsOn: ['Create a real automation project'],
-                },
-              ],
-            },
-            {
-              title: 'Week 3 — DevOps Basics',
-              objective: 'Understand modern software delivery pipelines and infrastructure automation.',
-              days: [
-                {
-                  label: 'Day 1 — Introduction to DevOps',
-                  topics: ['SDLC overview', 'Agile basics', 'DevOps lifecycle', 'CI/CD concepts'],
-                  handsOn: ['Tools overview: Git, GitHub, Jenkins'],
-                },
-                {
-                  label: 'Day 2 — Version Control with Git',
-                  topics: ['Repositories', 'Branching', 'Merging', 'Pull requests'],
-                  handsOn: ['git init', 'git clone', 'git commit', 'git push'],
-                },
-                {
-                  label: 'Day 3 — CI/CD Basics',
-                  topics: ['Continuous Integration', 'Continuous Deployment', 'Build pipelines'],
-                  handsOn: ['Create simple Jenkins pipeline'],
-                },
-                {
-                  label: 'Day 4 — Containers & Docker',
-                  topics: ['What is containerization?', 'Docker architecture', 'Docker images & containers'],
-                  handsOn: ['Build Docker images', 'Run applications in containers'],
-                },
-                {
-                  label: 'Day 5 — Cloud & Kubernetes Basics',
-                  topics: ['Cloud computing fundamentals', 'Introduction to Kubernetes', 'Pods and deployments'],
-                  handsOn: ['Deploy sample containerized app'],
-                },
-                {
-                  label: 'Day 6 — DevOps Project',
-                  topics: ['GitHub → Jenkins → Docker CI/CD workflow'],
-                  handsOn: ['Build a full pipeline project'],
-                },
-              ],
-            },
-            {
-              title: 'Week 4 — AI Basics & AI Agents',
-              objective: 'Introduce Artificial Intelligence, Generative AI, LLMs, and AI Agents.',
-              days: [
-                {
-                  label: 'Day 1 — AI & Machine Learning Fundamentals',
-                  topics: ['What is AI?', 'ML vs DL vs Generative AI', 'Supervised vs unsupervised learning', 'Neural networks basics'],
-                  handsOn: ['Python + Jupyter Notebook overview'],
-                },
-                {
-                  label: 'Day 2 — Introduction to Generative AI',
-                  topics: ['What are LLMs?', 'Tokens and embeddings', 'Prompt engineering', 'AI use cases'],
-                  handsOn: ['Explore OpenAI, Anthropic, Google platforms'],
-                },
-                {
-                  label: 'Day 3 — AI Development Basics',
-                  topics: ['APIs', 'Using AI models', 'Chatbots', 'Text generation'],
-                  handsOn: ['Build simple chatbot using Python'],
-                },
-                {
-                  label: 'Day 4 — AI Agents',
-                  topics: ['What are AI agents?', 'Agent workflows', 'Memory and tools', 'Autonomous systems'],
-                  handsOn: ['Create simple task automation agent'],
-                },
-                {
-                  label: 'Day 5 — Responsible AI & Industry Trends',
-                  topics: ['AI ethics', 'Hallucinations', 'Security concerns', 'Future of AI jobs'],
-                  handsOn: ['Discuss AI in software engineering and productivity'],
-                },
-                {
-                  label: 'Day 6 — Final Capstone Project',
-                  topics: ['AI-powered FAQ chatbot', 'Database query assistant', 'DevOps monitoring bot', 'Multi-agent workflow system'],
-                  handsOn: ['Present architecture, demo, GitHub repo, learning outcomes'],
-                },
-              ],
-            },
-          ].map((week, idx) => (
-            <div key={idx} className="rounded-3xl border border-white/10 bg-[#111214] p-8">
-              <h3 className="text-2xl font-bold text-white mb-3">{week.title}</h3>
-              <p className="text-white/70 mb-6">{week.objective}</p>
-              {week.days.map((day) => (
-                <div key={day.label} className="mb-6 rounded-3xl border border-white/10 bg-white/5 p-6">
-                  <h4 className="text-xl font-semibold text-white mb-3">{day.label}</h4>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div>
-                      <p className="text-sm uppercase tracking-[0.25em] text-white/50 mb-2">Topics</p>
-                      <ul className="list-disc list-inside space-y-2 text-white/80">
-                        {day.topics.map((topic) => (
-                          <li key={topic}>{topic}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <p className="text-sm uppercase tracking-[0.25em] text-white/50 mb-2">Hands-on</p>
-                      <ul className="list-disc list-inside space-y-2 text-white/80">
-                        {day.handsOn.map((task) => (
-                          <li key={task}>{task}</li>
-                        ))}
-                        {day.technologies && day.technologies.length > 0 && (
-                          <li>
-                            <span className="font-semibold">Technologies:</span> {day.technologies.join(', ')}
-                          </li>
-                        )}
-                      </ul>
-                    </div>
+        {activeTab === 'materials' && (
+          <div className="space-y-4 animate-fade-in">
+            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              <FileText className="w-6 h-6 text-emerald-400" /> Training Materials
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {data.details.materials.map((item: string, idx: number) => (
+                <div key={idx} className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-colors">
+                    <FileText className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white/90 group-hover:text-gold transition-colors">{item}</p>
+                    <p className="text-xs text-white/50">Click to download</p>
                   </div>
                 </div>
               ))}
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export default function CourseDetails() {
-  return (
-    <PageShell
-      title="Full Course Details"
-      description="Explore the full 4-week training path, hands-on modules, and learning outcomes for the SARMAK program."
-    >
-      <section className="pt-10 pb-8">
-        <div className="max-w-6xl mx-auto px-6 text-center xl:text-left">
-          <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold text-[#1c1d1b] font-bold uppercase tracking-[0.25em]">
-            <Sparkles className="w-5 h-5" /> Course Details
           </div>
-          <h2 className="text-4xl md:text-5xl font-black mb-4">Full 4-Week Course Breakdown</h2>
-          <p className="text-lg text-white/70 max-w-3xl mx-auto xl:mx-0">
-            Explore the complete weekly program, daily topics, and hands-on projects designed for college graduates ready to launch an IT career.
-          </p>
-        </div>
-      </section>
+        )}
 
-      <CourseDetailsSection />
-
-      <section className="py-10">
-        <div className="max-w-4xl mx-auto px-6 text-center xl:text-left">
-          <Link
-            to="/dashboard"
-            className="btn-outline inline-flex items-center gap-2"
-          >
-            <ArrowRight className="w-5 h-5" /> Go to Dashboard
-          </Link>
-        </div>
-      </section>
-    </PageShell>
+        {activeTab === 'tools' && (
+          <div className="space-y-4 animate-fade-in">
+            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              <TrendingUp className="w-6 h-6 text-gold" /> Tools & Resources
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {data.details.tools.map((item: string, idx: number) => (
+                <div key={idx} className="flex items-start gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-gold/30 transition-colors">
+                  <CheckCircle className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
+                  <p className="text-white/90">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

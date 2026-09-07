@@ -1,57 +1,65 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Star, Users, Zap, BookOpen, Trophy, CheckCircle } from 'lucide-react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowRight, Sparkles, BookOpen, Zap, CheckCircle, Clock } from 'lucide-react';
 import Logo from './components/Logo';
-import { useState, useRef } from "react";
+import SEO from './components/SEO';
 
-export default function LearningLanding() {
-const [submitting, setSubmitting] = useState(false);
-const isSubmittingRef = useRef(false); // instant guard, doesn't wait on a re-render
+type CourseType = 'college' | 'advance' | null;
 
-const handleSubmit = async (
-  e: React.FormEvent<HTMLFormElement>
-) => {
-
-  e.preventDefault();
-
-  if (isSubmittingRef.current) return;
-  isSubmittingRef.current = true;
-
-  setSubmitting(true);
-
-  const form = e.currentTarget;
-  const formData = new FormData(form);
-
-  try {
-
-    await fetch(
-      "https://script.google.com/macros/s/AKfycbzw5srUPBZ15E7zgoFs9hFO0rZArEfnKGRo1kxN2B3oifOSna0q_R4RnpAvS-nAw4XB/exec",
-      {
-        method: "POST",
-        mode: "no-cors",
-        body: formData
-      }
-    );
-
-    alert("Registration submitted successfully!");
-
-    form.reset();
-
-  } catch (err) {
-
-    console.error(err);
-
-    alert("Something went wrong. Please try again.");
-
-  } finally {
-
-    isSubmittingRef.current = false;
-    setSubmitting(false);
-
+const courses = {
+  college: {
+    id: 'college',
+    title: 'College Students Program',
+    subtitle: '4-Week Foundation to Industry-Ready',
+    description: 'Designed specifically for college students and fresh graduates. Bridges the gap between academic learning and industry expectations with hands-on labs and real-world projects.',
+    icon: <BookOpen className="w-8 h-8 text-emerald-400" />,
+    color: 'from-emerald-500/20 to-teal-500/20',
+    borderColor: 'border-emerald-500/30',
+    price: '₹499',
+    details: [
+      { week: 'Week 1', title: 'Databases & SQL', items: ['Relational DB Design', 'SQL Queries', 'NoSQL Intro', 'Hands-on Project'] },
+      { week: 'Week 2', title: 'Linux & Infrastructure', items: ['Linux Fundamentals', 'Shell Scripting', 'System Admin', 'Lab Exercises'] },
+      { week: 'Week 3', title: 'DevOps & Containers', items: ['Git & GitHub', 'CI/CD Pipelines', 'Docker', 'Production Deploy'] },
+      { week: 'Week 4', title: 'AI & Agents', items: ['AI Fundamentals', 'LLM Basics', 'Prompt Engineering', 'Capstone Project'] },
+    ]
+  },
+  advance: {
+    id: 'advance',
+    title: 'Advance Course',
+    subtitle: '6-Hour Intensive: AI Use Cases in IT Infrastructure',
+    description: 'An intensive, advanced track for working professionals. Dive deep into enterprise-grade infrastructure, AI-driven monitoring, predictive maintenance, and intelligent resource allocation.',
+    icon: <Zap className="w-8 h-8 text-gold" />,
+    color: 'from-gold/20 to-amber-500/20',
+    borderColor: 'border-gold/30',
+    price: '₹1,999',
+    details: [
+      { week: 'Hour 1', title: 'Intro to AI in IT & Tooling', items: ['AI Landscape in IT', 'Setting up AI Dev Environments', 'Overview of LLMs for Ops'] },
+      { week: 'Hour 2', title: 'Automated Monitoring & Logs', items: ['AI-powered Log Analysis', 'Anomaly Detection Setup', 'Smart Dashboarding'] },
+      { week: 'Hour 3', title: 'Predictive Maintenance', items: ['Forecasting System Failures', 'Intelligent Alerting Systems', 'Reducing False Positives'] },
+      { week: 'Hour 4', title: 'AI-Driven Security & Compliance', items: ['Automated Threat Hunting', 'Compliance Checking via AI', 'Incident Response Automation'] },
+      { week: 'Hour 5', title: 'Intelligent Resource Allocation', items: ['Cloud Cost Optimization', 'Auto-scaling with AI', 'Workload Prediction'] },
+      { week: 'Hour 6', title: 'Capstone: Build an IT AI Agent', items: ['Designing the Agent', 'Connecting to IT APIs', 'Deployment & Testing'] },
+    ]
   }
 };
+
+export default function App() {
+  const [selectedCourse, setSelectedCourse] = useState<CourseType>(null);
+  const navigate = useNavigate();
+
+  const handleRegister = (courseId: string) => {
+    navigate(`/payment?course=${courseId}`);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1c1d1b] to-[#0d0e10] text-white overflow-hidden">
-      {/* Navigation */}
+      <SEO 
+        title="IT Infrastructure Training Courses - SARMAK Learning" 
+        description="Enroll in SARMAK's 4-Week College Student IT Program or 6-Hour Advance AI in IT Infrastructure Course. Industry-ready training with expert mentorship."
+        keywords="IT infrastructure course, AI in IT training, college student IT program, DevOps training, SARMAK learning, IT certification"
+      />
+
+      {/* --- ORIGINAL HEADER (Intact) --- */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1c1d1b]/95 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -62,413 +70,174 @@ const handleSubmit = async (
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <a href="https://sarmak.in" className="text-sm text-white/80 hover:text-gold transition-colors">
-              Back to SARMAK →
-            </a>
-            <Link to="/course-details" className="text-sm text-white/80 hover:text-gold transition-colors">
-              Course Details
-            </Link>
-            <Link to="/profile" className="text-sm text-white/80 hover:text-gold transition-colors">
-              Profile
-            </Link>
-            <a href="/login" className="btn-outline text-sm inline-flex items-center gap-2">
-              Login
-            </a>
+        {/*     <a href="https://learn.sarmak.in" className="text-sm text-white/80 hover:text-gold transition-colors">Back to SARMAK →</a> */}
+            <Link to="/login" className="btn-outline text-sm inline-flex items-center gap-2">Login</Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section with Blinking Offer */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-500 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-64 h-64 bg-green-500 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
-          {/* Blinking Limited Offer Banner */}
-          <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold blink">
-            <Sparkles className="w-5 h-5 text-[#1c1d1b]" />
-            <span className="font-bold text-[#1c1d1b] text-sm uppercase tracking-widest">🎯 Limited Time Offer — Only 30 Seats!</span>
+      <main className="pt-28 pb-20">
+        {/* Hero Section */}
+        <section className="relative py-16 px-6 text-center overflow-hidden">
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-500 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-20 right-10 w-64 h-64 bg-green-500 rounded-full blur-3xl"></div>
           </div>
-
-          <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
-            Launch Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-lime-300 to-emerald-500">IT Career</span> in 4 Weeks
-          </h1>
-
-          <p className="text-xl text-white/70 max-w-2xl mx-auto mb-10">
-            Free training. Expert mentorship. Real projects. Ready for industry in just 28 days.
-          </p>
-
-          {/* Massive CTA */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <a
-              href="#register"
-              className="btn-primary text-lg inline-flex items-center gap-2"
-            >
-              <span className="blink">🚀 Register Now (Free)</span>
-              <ArrowRight className="w-5 h-5" />
-            </a>
-            <Link
-              to="/course-details"
-              className="btn-outline text-lg inline-flex items-center gap-2"
-            >
-              Learn More
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link
-              to="/login"
-              className="btn-outline text-lg inline-flex items-center gap-2"
-            >
-              Learner Login
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-
-          {/* Quick Stats */}
-          <div className="grid grid-cols-3 gap-4 max-w-xl mx-auto">
-            {[
-              { label: 'Students', value: 'Limited Seats' },
-              { label: 'Free', value: '₹0' },
-              { label: 'Days', value: '28' },
-            ].map((stat) => (
-              <div key={stat.label} className="rounded-2xl bg-white/10 backdrop-blur p-4">
-                <div className="text-2xl font-bold text-emerald-400">{stat.value}</div>
-                <div className="text-xs text-white/60">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Registration Form Section */}
-      <section id="register" className="py-20 bg-black/60 border-t border-white/10">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
-            <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center">
-              <div className="space-y-6">
-                <span className="text-gold text-sm font-medium uppercase tracking-widest">Secure your seat</span>
-                <h2 className="text-4xl md:text-5xl font-black">Register for the free SARMAK training</h2>
-                <p className="text-white/70 text-lg max-w-xl">
-Submit your details and we'll reserve your seat. Your registration will be securely recorded and our team will contact you with the next steps.
-                </p>
-                <ul className="grid gap-3 text-white/80">
-                  {['Free training for fresh graduates', 'Limited 30 seats only', 'Resume review + mentor matching', 'Industry-ready curriculum'].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="mt-1 text-emerald-400">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <form
-  onSubmit={handleSubmit}
-  className="space-y-5 bg-[#0f1113] rounded-3xl border border-white/10 p-8"
->
-
-
-                <div>
-                  <label className="text-sm font-medium text-white/70">Full Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="Enter your full name"
-                    className="mt-2 w-full rounded-3xl border border-white/10 bg-[#111314] px-4 py-3 text-white outline-none transition focus:border-emerald-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-white/70">Email Address</label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="you@example.com"
-                    className="mt-2 w-full rounded-3xl border border-white/10 bg-[#111314] px-4 py-3 text-white outline-none transition focus:border-emerald-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-white/70">Phone Number</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    required
-                    placeholder="+91 98765 43210"
-                    className="mt-2 w-full rounded-3xl border border-white/10 bg-[#111314] px-4 py-3 text-white outline-none transition focus:border-emerald-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-white/70">College / University</label>
-                  <input
-                    type="text"
-                    name="college"
-                    placeholder="Your college or university"
-                    className="mt-2 w-full rounded-3xl border border-white/10 bg-[#111314] px-4 py-3 text-white outline-none transition focus:border-emerald-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-white/70">Primary Interest</label>
-                  <select
-                    name="interest"
-                    className="mt-2 w-full rounded-3xl border border-white/10 bg-[#111314] px-4 py-3 text-white outline-none transition focus:border-emerald-400"
-                  >
-                    <option value="">Choose one</option>
-                    <option value="AI & Agents">AI & Agents</option>
-                    <option value="DevOps & Containers">DevOps & Containers</option>
-                    <option value="Databases & SQL">Databases & SQL</option>
-                    <option value="Linux & Infrastructure">Linux & Infrastructure</option>
-                  </select>
-                </div>
-<button
-  type="submit"
-  disabled={submitting}
-  className="btn-primary w-full inline-flex items-center justify-center gap-2 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
->
-  {submitting ? "Submitting..." : "Submit Registration"}
-
-  <ArrowRight className="w-5 h-5" />
-</button>
-              </form>
+          <div className="relative z-10 max-w-4xl mx-auto animate-fade-in-up">
+            <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/20 text-gold text-sm font-bold uppercase tracking-widest">
+              <Sparkles className="w-4 h-4" /> Choose Your Learning Path
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Blinking Offers Section */}
-      <section className="py-16 bg-black/50 border-y border-white/10">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                title: '💎 Early Bird Bonus',
-                desc: 'Free resume review + LinkedIn optimization',
-                blink: true,
-              },
-              {
-                title: '🎁  Rewards',
-                desc: 'Get aditonal surprises during training for your IT journey',
-                blink: true,
-              },
-              {
-                title: '🏆 Premium Mentorship',
-                desc: 'Mentors with more than 12 years of hands on experience in the industry',
-                blink: true,
-              },
-            ].map((offer, idx) => (
-              <div
-                key={idx}
-                className={`glass-card p-6 ${offer.blink ? 'blink' : ''}`}
-              >
-                <div className="text-3xl mb-3">{offer.title.split(' ')[0]}</div>
-                <h3 className="text-lg font-bold mb-2">{offer.title}</h3>
-                <p className="text-white/70 text-sm">{offer.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Program Modules */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black mb-4">What You'll Learn</h2>
-            <p className="text-white/70 text-lg max-w-2xl mx-auto">
-              Get ready to join your IT journey and crack interviews by gaining industry level knowledge in all fields . 
-              Master industry-critical skills through hands-on labs and real projects ,
-              Be the first choice by your choice .
+            <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
+              Master <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-lime-300 to-emerald-500">IT Infrastructure</span>
+            </h1>
+            <p className="text-xl text-white/70 max-w-2xl mx-auto">
+              Select a program tailored to your experience level. View full details below, then register and proceed to secure your seat.
             </p>
           </div>
+        </section>
 
+{/* Navigation */}
+<nav className="fixed top-0 left-0 right-0 z-50 bg-[#1c1d1b]/95 backdrop-blur-xl border-b border-white/10">
+  <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div className="flex items-center gap-3">
+      <Logo className="h-12 w-auto transition-transform duration-300 hover:scale-105" />
+      <div className="hidden sm:block">
+        <span className="text-xl font-bold tracking-wider">SARMAK <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-lime-300 to-emerald-500">Learning Portal</span></span>
+        <span className="block text-xs text-gold font-mono tracking-widest">INNOVATE. TRANSFORM. EXCEL.</span>
+      </div>
+    </div>
+    <div className="flex items-center gap-4">
+     {/*  <a href="https://sarmak.in" className="text-sm text-white/80 hover:text-gold transition-colors hidden lg:block">
+        Back to SARMAK →
+      </a> 
+      <Link to="/course-details" className="text-sm text-white/80 hover:text-gold transition-colors hidden md:block">
+        Course Details
+      </Link>
+      <Link to="/profile" className="text-sm text-white/80 hover:text-gold transition-colors hidden md:block">
+        Profile
+      </Link>*/}
+      
+
+      
+      <Link to="/login" className="btn-outline text-sm inline-flex items-center gap-2">
+        Login
+      </Link>
+    </div>
+  </div>
+</nav>
+      {/* Blinking Webinar Registration Label */}
+      <Link 
+        to="/webinar" 
+        className="fixed top-24 right-6 z-40 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold blink group animate-pulse-glow"
+      >
+        <span className="absolute inset-0 rounded-full bg-gold animate-ping opacity-75"></span>
+        <span className="relative flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#1c1d1b] animate-pulse"></span>
+          <span className="font-bold text-[#1c1d1b] text-sm uppercase tracking-wider whitespace-nowrap">
+             Register for Webinar ₹9 
+          </span>
+        </span>
+      </Link>
+      
+        {/* Course Selection Cards */}
+        <section className="px-6 max-w-7xl mx-auto mb-16">
           <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                week: 'Week 1',
-                title: 'Databases & SQL',
-                icon: <BookOpen className="w-8 h-8" />,
-                items: ['Relational DB Design', 'SQL Queries', 'NoSQL Intro', 'Hands-on Project'],
-              },
-              {
-                week: 'Week 2',
-                title: 'Linux & Infrastructure',
-                icon: <Zap className="w-8 h-8" />,
-                items: ['Linux Fundamentals', 'Shell Scripting', 'System Admin', 'Lab Exercises'],
-              },
-              {
-                week: 'Week 3',
-                title: 'DevOps & Containers',
-                icon: <Users className="w-8 h-8" />,
-                items: ['Git & GitHub', 'CI/CD Pipelines', 'Docker', 'Production Deploy'],
-              },
-              {
-                week: 'Week 4',
-                title: 'AI & Agents',
-                icon: <Trophy className="w-8 h-8" />,
-                items: ['AI Fundamentals', 'LLM Basics', 'Prompt Engineering', 'Capstone Project'],
-              },
-            ].map((module, idx) => (
-              <div key={idx} className="glass-card p-8 hover:translate-y-[-8px] transition-transform">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <div className="text-sm text-emerald-400 font-bold mb-1">{module.week}</div>
-                    <h3 className="text-2xl font-bold">{module.title}</h3>
+            {(['college', 'advance'] as CourseType[]).map((key) => {
+              const course = courses[key!];
+              const isSelected = selectedCourse === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => setSelectedCourse(key)}
+                  className={`relative group text-left rounded-3xl border p-8 transition-all duration-500 ease-out backdrop-blur-xl overflow-hidden
+                    ${isSelected 
+                      ? `${course.borderColor} bg-gradient-to-br ${course.color} shadow-2xl shadow-emerald-500/10 scale-[1.02]` 
+                      : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10 hover:scale-[1.01]'
+                    }`}
+                >
+                  <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                    {course.icon}
                   </div>
-                  <div className="text-emerald-400">{module.icon}</div>
-                </div>
-                <ul className="space-y-3">
-                  {module.items.map((item, i) => (
-                    <li key={i} className="flex gap-3 text-white/80">
-                      <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                  <div className="relative z-10">
+                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 transition-colors duration-300 ${isSelected ? 'bg-white/20' : 'bg-white/5'}`}>
+                      {course.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2">{course.title}</h3>
+                    <p className="text-gold font-semibold mb-4 flex items-center gap-2">
+                      <Clock className="w-4 h-4" /> {course.subtitle}
+                    </p>
+                    <p className="text-white/70 text-sm leading-relaxed mb-6">{course.description}</p>
+                    <div className="flex items-center gap-2 text-sm font-semibold group-hover:gap-3 transition-all text-emerald-400">
+                      <span>{isSelected ? 'Viewing Details' : 'Click to View Details'}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                  {isSelected && (
+                    <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gold flex items-center justify-center animate-bounce-in">
+                      <CheckCircle className="w-5 h-5 text-[#1c1d1b]" />
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Course Details Breakdown (Visible BEFORE Login) */}
+        {selectedCourse && (
+          <section id="course-breakdown" className="px-6 max-w-5xl mx-auto animate-fade-in-up">
+            <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden">
+              <div className="p-8 md:p-12 border-b border-white/10 bg-white/5">
+                <h2 className="text-3xl font-black mb-4 flex items-center gap-3">
+                  {courses[selectedCourse].icon}
+                  {courses[selectedCourse].title} Breakdown
+                </h2>
+                <p className="text-white/70">Complete syllabus and schedule. No login required to view.</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Hot Deal Flash Offer */}
-      <section className="py-20 bg-gradient-to-r -emerald-600 to-green-600 relative overflow-hiddenfrom">
-        <div className="absolute top-0 left-0 w-full h-full opacity-20">
-          <div className="absolute inset-0 animate-pulse"></div>
-        </div>
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-black/30">
-            <Sparkles className="w-5 h-5 animate-spin" />
-            <span className="text-sm font-bold uppercase">⚡ Flash Deal Alert</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-black mb-4 text-emerald-400">
-            First 30 Registrations Get<br className="hidden md:block" /> Additonal Resume Review + LinkedIn Optimization
-          </h2>
-         {/* <p className="text-xl text-black/80 mb-8 max-w-2xl mx-auto">
-            Plus: Free 1-on-1 industry mentor matching worth ₹25,000
-          </p> */}
-          <a
-            href="/#register"
-            className="btn-primary inline-flex items-center gap-2 text-lg"
-          >
-            Claim Your Spot Now
-            <ArrowRight className="w-5 h-5" />
-          </a>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl font-black text-center mb-16">Success Stories</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: 'Arjun Singh',
-                role: 'Now Senior DevOps Engineer',
-                text: 'This program was a game-changer. Got job offer 2 weeks after completion!',
-                rating: 5,
-              },
-              {
-                name: 'Priya Sharma',
-                role: 'AI Specialist at TechCorp',
-                text: 'The mentors were incredible. Real-world projects gave me actual portfolio pieces.',
-                rating: 5,
-              },
-              {
-                name: 'Rohan Patel',
-                role: 'Full Stack Developer',
-                text: 'Best free training I could ask for. Career accelerator certificate helped me land interviews.',
-                rating: 5,
-              },
-            ].map((testimonial, idx) => (
-              <div key={idx} className="glass-card p-8">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-emerald-400 text-emerald-400" />
-                  ))}
-                </div>
-                <p className="text-white/90 mb-4 leading-relaxed">"{testimonial.text}"</p>
-                <div>
-                  <div className="font-bold">{testimonial.name}</div>
-                  <div className="text-sm text-white/60">{testimonial.role}</div>
-                </div>
+              
+              <div className="p-8 md:p-12 grid gap-6">
+                {courses[selectedCourse].details.map((module, idx) => (
+                  <div key={idx} className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl bg-[#111314] border border-white/5 hover:border-emerald-500/30 transition-colors duration-300">
+                    <div className="md:w-48 flex-shrink-0">
+                      <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-bold mb-2">
+                        {module.week}
+                      </span>
+                      <h4 className="text-xl font-bold text-white">{module.title}</h4>
+                    </div>
+                    <div className="flex-1 grid sm:grid-cols-2 gap-3">
+                      {module.items.map((item, i) => (
+                        <div key={i} className="flex items-start gap-3 text-white/80">
+                          <CheckCircle className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* FAQ */}
-      <section className="py-20 bg-black/50">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-4xl font-black text-center mb-16">Common Questions</h2>
-          <div className="space-y-6">
-            {[
-              {
-                q: 'Is this really free?',
-                a: 'Yes, 100% free. No hidden charges. We believe in making quality education accessible.',
-              },
-              {
-                q: 'Do I need prior experience?',
-                a: 'No. We start from basics. Fresh graduates welcome. Beginners ideal.',
-              },
-              {
-                q: 'What if I can\'t join full-time?',
-                a: 'Flexible schedule. 4-6 hours/day. Recorded sessions available. Catch up anytime.',
-              },
-              {
-                q: 'Will I get a job after?',
-                a: 'We offer job-ready training + resume support + industry mentor connections. Success depends on your effort.',
-              },
-              {
-                q: 'Can I defer my enrollment?',
-                a: 'Yes. Register now, join any upcoming batch. Limited seats, so early registration recommended.',
-              },
-            ].map((faq, idx) => (
-              <details key={idx} className="glass-card p-6 cursor-pointer group">
-                <summary className="font-bold text-lg flex justify-between items-center">
-                  {faq.q}
-                  <span className="text-emerald-400 group-open:rotate-180 transition-transform">
-                    ↓
-                  </span>
-                </summary>
-                <p className="text-white/70 mt-4">{faq.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+              {/* Registration & Payment CTA */}
+              <div className="p-8 md:p-12 bg-gradient-to-r from-emerald-900/20 to-green-900/20 border-t border-white/10 text-center">
+                <h3 className="text-2xl font-bold mb-4">Ready to transform your career?</h3>
+                <p className="text-white/70 mb-8 max-w-xl mx-auto">
+                  Secure your seat in the <span className="text-gold font-semibold">{courses[selectedCourse].title}</span>. 
+                  Complete your registration and proceed to our secure payment gateway.
+                </p>
+                <button 
+                  onClick={() => handleRegister(courses[selectedCourse].id)}
+                  className="btn-primary text-lg inline-flex items-center gap-3 pulse-glow"
+                >
+                  <span>Register & Proceed to Payment ({courses[selectedCourse].price})</span>
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+                <p className="text-xs text-white/40 mt-4">Secure checkout • Instant access upon payment • 100% Satisfaction guarantee</p>
+              </div>
+            </div>
+          </section>
+        )}
+      </main>
 
-      {/* Final CTA */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-1/2 left-1/4 w-80 h-80 bg-emerald-500 rounded-full blur-3xl"></div>
-        </div>
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-black mb-6">
-            Your Future Starts Here
-          </h2>
-          <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto">
-            Don't wait. Limited seats. Only 30 spots. Next batch fills up in days.
-          </p>
-          <a
-            href="/#register"
-            className="btn-primary text-xl inline-flex items-center gap-2"
-          >
-            🎯 Secure Your Spot (Free)
-            <ArrowRight className="w-6 h-6" />
-          </a>
-          <p className="text-white/50 text-sm mt-8">
-            No credit card required • Results guaranteed • 28 days to career transformation
-          </p>
-        </div>
-      </section>
-
-      {/* Footer */}
+      {/* --- ORIGINAL FOOTER (Intact) --- */}
       <footer className="bg-black/50 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">

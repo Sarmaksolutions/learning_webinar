@@ -20,6 +20,8 @@ import ReportBug from './ReportBug.tsx'
 import './index.css'
 
 import PaymentSuccess from './PaymentSuccess.tsx';
+// Add this import at the top
+import Payment from './Payment.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -30,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/profile" element={<Profile />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/webinar" element={<Webinar />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path="/payment-success"element={<PaymentSuccess />}/>
         <Route path="/materials" element={<Materials />} />
         <Route path="/progress" element={<Progress />} />

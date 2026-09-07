@@ -1,9 +1,25 @@
 import Logo from "./components/Logo";
 import { useSearchParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
   const orderId = searchParams.get("order_id");
+  const [orderStatus, setOrderStatus] = useState("Checking payment status...");
+
+  useEffect(() => {
+    if (!orderId) {
+      setOrderStatus("Your registration has been received.");
+      return;
+    }
+
+    fetch(`/.netlify/functions/verify-order?order_id=${encodeURIComponent(orderId)}`)
+      .then((response) => response.json())
+      .then((result) => {
+        setOrderStatus(result.order_status === "PAID" ? "Payment confirmed successfully." : "Payment submitted. We are confirming your registration.");
+      })
+      .catch(() => setOrderStatus("Payment submitted. We are confirming your registration."));
+  }, [orderId]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1c1d1b] to-[#0d0e10] text-white flex items-center justify-center px-6">
@@ -28,7 +44,7 @@ export default function PaymentSuccess() {
           Thank you for registering for the
           <br />
           <strong className="text-white">
-            WORRIES to Hired Workshop
+            From Worried to Hired Workshop
           </strong>
         </p>
 
@@ -44,10 +60,8 @@ export default function PaymentSuccess() {
           </div>
         )}
 
-        <p className="text-white/60 mb-8">
-          Your registration has been successfully received.
-          We will contact you with the next steps.
-        </p>
+        <p className="text-emerald-300 mb-2">{orderStatus}</p>
+        <p className="text-white/60 mb-8">We will contact you with the next steps.</p>
 
         <Link
           to="/webinar"
