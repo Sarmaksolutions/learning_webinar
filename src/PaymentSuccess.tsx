@@ -40,7 +40,7 @@ export default function PaymentSuccess() {
         // ==========================================
         // SUCCESS
         // ==========================================
-        if (result.payment_status === "SUCCESS") {
+        if (result.payment_status === "PAID" || result.payment_status === "SUCCESS") {
           setStatus("SUCCESS");
           return;
         }

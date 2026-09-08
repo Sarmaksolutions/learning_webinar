@@ -115,7 +115,7 @@ exports.handler = async (event) => {
       process.env.CASHFREE_CLIENT_SECRET;
 
     const mode =
-      process.env.CASHFREE_MODE || 'sandbox';
+      process.env.CASHFREE_ENV  || 'sandbox';
 
 
     if (!clientId || !clientSecret) {
