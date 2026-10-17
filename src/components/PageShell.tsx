@@ -27,14 +27,14 @@ const navItems = [
 
 export default function PageShell({ title, description, children }: PageShellProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#111315] to-[#0d0e10] text-white">
-      <header className="border-b border-white/10 bg-[#111315]/95 backdrop-blur-xl">
+    <div className="brand-page min-h-screen text-white">
+      <header className="border-b border-white/10 bg-[#11112d]/90 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Link to="/" className="flex items-center gap-3">
             <Logo className="h-12 w-auto" />
             <div className="hidden sm:block">
               <p className="text-base font-bold tracking-wider">SARMAK Learning Portal</p>
-              <p className="text-[10px] uppercase text-gold font-mono tracking-widest">INNOVATE. TRANSFORM. EXCEL.</p>
+              <p className="text-[10px] text-[#f5a044] tracking-wide">Learn what industry needs</p>
             </div>
           </Link>
 
@@ -48,7 +48,7 @@ export default function PageShell({ title, description, children }: PageShellPro
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-24 lg:grid lg:grid-cols-[280px_1fr] gap-10">
-        <aside className="hidden xl:block sticky top-28 self-start rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl">
+        <aside className="hidden xl:block sticky top-28 self-start rounded-[2rem] border border-white/10 bg-[#1b1b43]/80 p-6 shadow-2xl backdrop-blur-xl">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-white/50">Your Learning Portal</p>
             <h2 className="mt-4 text-xl font-semibold text-white">Quick Navigation</h2>
@@ -82,7 +82,7 @@ export default function PageShell({ title, description, children }: PageShellPro
         </div>
       </main>
 
-      <footer className="border-t border-white/10 bg-black/60 text-white/70">
+      <footer className="border-t border-white/10 bg-[#0d0d24]/75 text-white/70">
         <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 lg:grid-cols-[1.35fr_0.65fr]">
           <div>
             <p className="text-sm text-white/80 font-semibold">Need help?</p>

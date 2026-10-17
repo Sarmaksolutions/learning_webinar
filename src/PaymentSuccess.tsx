@@ -86,7 +86,7 @@ export default function PaymentSuccess() {
 
   if (status === "CHECKING") {
     return (
-      <div className="min-h-screen bg-[#0d0e10] text-white flex items-center justify-center px-4">
+      <div className="brand-page min-h-screen text-white flex items-center justify-center px-4">
         <div className="text-center">
 
           <div
@@ -125,10 +125,7 @@ export default function PaymentSuccess() {
       <div
         className="
           min-h-screen
-          bg-gradient-to-b
-          from-[#1b1c1b]
-          via-[#101112]
-          to-[#08090a]
+          brand-page
           text-white
           flex
           justify-center
@@ -143,10 +140,10 @@ export default function PaymentSuccess() {
             w-full
             max-w-[720px]
             rounded-[26px]
-            bg-[#101213]
+            bg-[#1b1b43]
             border
-            border-[#c9a52e]
-            shadow-[0_0_35px_rgba(212,175,55,0.08)]
+            border-[#f5a044]
+            shadow-[0_0_35px_rgba(245,160,68,0.12)]
             px-5
             py-8
             md:px-12
@@ -155,8 +152,9 @@ export default function PaymentSuccess() {
         >
 
           {/* LOGO */}
-          <div className="flex justify-center mb-7">
+          <div className="mb-7 flex flex-col items-center">
             <Logo className="h-16 md:h-20 w-auto" />
+            <p className="mt-2 text-sm tracking-wide text-[#f5a044]">Learn what industry needs</p>
           </div>
 
           {/* SUCCESS ICON */}
@@ -212,7 +210,7 @@ export default function PaymentSuccess() {
           {/* AMOUNT */}
           <div
             className="
-              bg-[#17191a]
+              bg-[#22224d]
               border
               border-white/10
               rounded-2xl
@@ -225,7 +223,7 @@ export default function PaymentSuccess() {
               Amount Paid
             </p>
 
-            <p className="text-[#d4af37] text-3xl font-black">
+            <p className="text-[#f5a044] text-3xl font-black">
               ₹9
             </p>
           </div>
@@ -234,7 +232,7 @@ export default function PaymentSuccess() {
           <div
             className="
               border
-              border-[#c9a52e]
+              border-[#f5a044]
               rounded-xl
               px-5
               py-6
@@ -244,7 +242,7 @@ export default function PaymentSuccess() {
           >
             <h3
               className="
-                text-[#e0b83f]
+                text-[#f5a044]
                 font-bold
                 text-base
                 md:text-lg
@@ -300,7 +298,7 @@ export default function PaymentSuccess() {
 
             <h2
               className="
-                text-[#e0b83f]
+                text-[#f5a044]
                 text-lg
                 md:text-xl
                 font-bold
@@ -324,7 +322,7 @@ export default function PaymentSuccess() {
               🔒 Secure Payment
               <span className="mx-2">|</span>
 
-              <span className="text-[#d4af37] font-semibold">
+              <span className="text-[#f5a044] font-semibold">
                 SARMAK Learning Portal
               </span>
             </p>
@@ -370,8 +368,8 @@ export default function PaymentSuccess() {
     <div
       className="
         min-h-screen
-        bg-white
-        text-[#171b23]
+        brand-page
+        text-white
         flex
         items-center
         justify-center
@@ -392,8 +390,9 @@ export default function PaymentSuccess() {
             EXISTING SARMAK LOGO
         ====================================== */}
 
-        <div className="flex justify-center mb-10">
+        <div className="mb-10 flex flex-col items-center">
           <Logo className="h-16 md:h-20 w-auto" />
+          <p className="mt-2 text-sm tracking-wide text-[#f5a044]">Learn what industry needs</p>
         </div>
 
 
@@ -485,7 +484,7 @@ export default function PaymentSuccess() {
           className="
             text-2xl
             md:text-4xl
-            text-[#555d6d]
+            text-white/70
             leading-tight
             max-w-[850px]
             mx-auto
@@ -499,7 +498,7 @@ export default function PaymentSuccess() {
           className="
             text-2xl
             md:text-4xl
-            text-[#555d6d]
+            text-white/70
             leading-tight
             mb-10
           "
@@ -522,11 +521,11 @@ export default function PaymentSuccess() {
             md:min-h-[125px]
             rounded-[28px]
             bg-gradient-to-r
-            from-[#ff2b32]
-            to-[#e91b23]
-            hover:from-[#e91b23]
-            hover:to-[#c9141b]
-            text-white
+            from-[#f5a044]
+            to-[#ffbd68]
+            hover:from-[#ffbd68]
+            hover:to-[#f5a044]
+            text-[#11112d]
             text-3xl
             md:text-5xl
             font-bold
@@ -534,7 +533,7 @@ export default function PaymentSuccess() {
             items-center
             justify-center
             gap-5
-            shadow-[0_15px_35px_rgba(239,68,68,0.25)]
+            shadow-[0_15px_35px_rgba(245,160,68,0.25)]
             transition
             duration-200
           "

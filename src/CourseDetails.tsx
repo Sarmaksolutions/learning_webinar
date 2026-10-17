@@ -59,7 +59,7 @@ export default function CourseDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1c1d1b] to-[#0d0e10] text-white">
+    <div className="brand-page min-h-screen text-white">
       <SEO 
         title="Course Details - SARMAK Learning Portal" 
         description="Explore our College Students Program and Advance IT Infrastructure Course. Login to access detailed curriculum, schedules, materials, and tools."
@@ -67,12 +67,13 @@ export default function CourseDetails() {
       />
       
       {/* Navigation Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#1c1d1b]/95 backdrop-blur-xl border-b border-white/10">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#11112d]/90 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
             <Logo className="h-10 w-auto transition-transform duration-300 group-hover:scale-105" />
             <div className="hidden sm:block">
               <span className="text-lg font-bold tracking-wider">SARMAK <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-lime-300">Learning</span></span>
+              <span className="block text-xs text-[#f5a044] tracking-wide">Learn what industry needs</span>
             </div>
           </Link>
           <div className="flex items-center gap-4">

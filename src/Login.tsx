@@ -56,7 +56,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#111315] to-[#0d0e10] text-white">
+    <div className="brand-page min-h-screen text-white">
       <SEO
         title="Learner Login - SARMAK Learning Portal"
         description="Login with your mobile number and OTP to access schedules, training materials and your learning dashboard."
@@ -68,7 +68,7 @@ const Login = () => {
             <Logo className="h-12 w-auto" />
             <div className="hidden sm:block">
               <span className="text-xl font-bold tracking-wider">SARMAK <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-lime-300 to-emerald-500">Learning Portal</span></span>
-              <span className="block text-xs text-gold font-mono tracking-widest">INNOVATE. TRANSFORM. EXCEL.</span>
+              <span className="block text-xs text-[#f5a044] tracking-wide">Learn what industry needs</span>
             </div>
           </div>
           <Link to="/" className="absolute right-0 top-0 btn-outline inline-flex items-center gap-2 hidden sm:inline-flex">

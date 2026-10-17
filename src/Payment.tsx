@@ -73,8 +73,12 @@ export default function Payment() {
 
   if (!courseDetails) {
     return (
-      <div className="min-h-screen bg-[#1c1d1b] text-white flex items-center justify-center p-6">
+      <div className="brand-page min-h-screen text-white flex items-center justify-center p-6">
         <div className="text-center">
+          <div className="mb-8 flex flex-col items-center">
+            <Logo className="h-14 w-auto" />
+            <p className="mt-2 text-sm tracking-wide text-[#f5a044]">Learn what industry needs</p>
+          </div>
           <h2 className="text-2xl font-bold mb-4">Invalid Course Selection</h2>
           <Link to="/" className="btn-primary inline-flex items-center gap-2">
             <ArrowLeft className="w-4 h-4" /> Back to Courses
@@ -85,64 +89,75 @@ export default function Payment() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1c1d1b] to-[#0d0e10] text-white">
-      <nav className="border-b border-white/10 bg-[#1c1d1b]/95 backdrop-blur-xl">
+    <div className="brand-page payment-page min-h-screen text-white">
+      <nav className="border-b border-white/10 bg-[#11112d]/95 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
-            <Logo className="h-10 w-auto transition-transform duration-300 group-hover:scale-105" />
-            <span className="text-lg font-bold tracking-wider">SARMAK <span className="text-gold">Secure Checkout</span></span>
+            <Logo className="h-12 w-auto transition-transform duration-300 group-hover:scale-105" />
+            <span className="hidden sm:block border-l border-white/15 pl-3">
+              <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Secure Checkout</span>
+              <span className="mt-1 block text-xs font-medium tracking-wide text-[#f5a044]">Learn what industry needs</span>
+            </span>
           </Link>
-          <Link to="/" className="text-sm text-white/70 hover:text-gold transition-colors flex items-center gap-2">
+          <Link to="/" className="text-sm text-white/70 hover:text-[#f5a044] transition-colors flex items-center gap-2">
             <ArrowLeft className="w-4 h-4" /> Back to Courses
           </Link>
         </div>
       </nav>
 
-      <main className="max-w-5xl mx-auto px-6 py-16">
-        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12">
+      <main className="max-w-5xl mx-auto px-6 py-12 md:py-16">
+        <div className="mb-10">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#f5a044]">Bridging academia and industry</p>
+          <h1 className="text-3xl font-black tracking-tight text-white sm:text-4xl">Complete your registration</h1>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/65">Secure your place and take the next step toward industry-ready skills.</p>
+        </div>
+        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8">
           
           {/* Payment Form */}
-          <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8">
+          <div className="rounded-3xl border border-white/15 bg-[#f7f5ef] p-6 text-[#151532] shadow-[0_24px_80px_rgba(0,0,0,0.24)] sm:p-8">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              <CreditCard className="w-6 h-6 text-emerald-400" /> Payment Details
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#3548b5]/10">
+                <CreditCard className="w-5 h-5 text-[#3548b5]" />
+              </span>
+              Payment Details
             </h2>
             <form onSubmit={handlePayment} className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm text-white/70 mb-2">Full Name</label>
-                    <input required name="name" type="text" className="w-full rounded-xl border border-white/10 bg-[#111314] px-4 py-3 text-white outline-none focus:border-emerald-400 transition" placeholder="John Doe" />
+                  <label className="block text-sm font-medium text-[#44445c] mb-2">Full Name</label>
+                    <input required name="name" type="text" className="w-full rounded-xl border border-[#d9d9e3] bg-white px-4 py-3 text-[#151532] outline-none placeholder:text-[#9393a3] focus:border-[#3548b5] focus:ring-2 focus:ring-[#3548b5]/15 transition" placeholder="John Doe" />
                 </div>
                 <div>
-                  <label className="block text-sm text-white/70 mb-2">Email Address</label>
-                    <input required name="email" type="email" className="w-full rounded-xl border border-white/10 bg-[#111314] px-4 py-3 text-white outline-none focus:border-emerald-400 transition" placeholder="john@example.com" />
+                  <label className="block text-sm font-medium text-[#44445c] mb-2">Email Address</label>
+                    <input required name="email" type="email" className="w-full rounded-xl border border-[#d9d9e3] bg-white px-4 py-3 text-[#151532] outline-none placeholder:text-[#9393a3] focus:border-[#3548b5] focus:ring-2 focus:ring-[#3548b5]/15 transition" placeholder="john@example.com" />
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm text-white/70 mb-2">WhatsApp Number</label>
-                <input required name="phone" type="tel" inputMode="numeric" className="w-full rounded-xl border border-white/10 bg-[#111314] px-4 py-3 text-white outline-none focus:border-emerald-400 transition" placeholder="9876543210" />
+                <label className="block text-sm font-medium text-[#44445c] mb-2">WhatsApp Number</label>
+                <input required name="phone" type="tel" inputMode="numeric" className="w-full rounded-xl border border-[#d9d9e3] bg-white px-4 py-3 text-[#151532] outline-none placeholder:text-[#9393a3] focus:border-[#3548b5] focus:ring-2 focus:ring-[#3548b5]/15 transition" placeholder="9876543210" />
               </div>
 
               <button 
                 type="submit" 
                 disabled={isProcessing}
-                className="w-full btn-primary text-lg inline-flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#f5a044] px-6 py-4 text-lg font-bold text-[#11112d] shadow-lg shadow-[#f5a044]/20 transition hover:bg-[#ffb45f] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isProcessing ? 'Processing...' : `Pay ${courseDetails.price} Securely`}
                 <ShieldCheck className="w-5 h-5" />
               </button>
 
-              {paymentError && <p className="text-sm text-red-300 text-center">{paymentError}</p>}
+              {paymentError && <p className="text-sm text-red-700 text-center">{paymentError}</p>}
               
-              <p className="text-xs text-center text-white/40 flex items-center justify-center gap-2">
-                <ShieldCheck className="w-4 h-4" /> 256-bit SSL Encrypted & Secure Payment
+              <p className="text-xs text-center text-[#73738a] flex items-center justify-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-[#3548b5]" /> 256-bit SSL Encrypted & Secure Payment
               </p>
             </form>
           </div>
 
           {/* Order Summary */}
-          <div className="rounded-3xl border border-gold/20 bg-gold/5 backdrop-blur-xl p-8 h-fit">
-            <h3 className="text-xl font-bold mb-6 text-gold">Order Summary</h3>
+          <div className="h-fit rounded-3xl border border-[#f5a044]/30 bg-[#1b1b43] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.18)] sm:p-8">
+            <h3 className="text-xl font-bold mb-6 text-[#f5a044]">Order Summary</h3>
             <div className="space-y-4 mb-6">
               <div className="flex justify-between items-start">
                 <span className="text-white/80 font-semibold">{courseDetails.name}</span>
@@ -151,7 +166,7 @@ export default function Payment() {
               <div className="border-t border-white/10 pt-4 space-y-3">
                 {courseDetails.features.map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3 text-sm text-white/70">
-                    <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <CheckCircle className="w-4 h-4 text-[#f5a044] flex-shrink-0 mt-0.5" />
                     <span>{feature}</span>
                   </div>
                 ))}
@@ -159,7 +174,7 @@ export default function Payment() {
             </div>
             <div className="border-t border-white/10 pt-4 flex justify-between items-center">
               <span className="text-lg font-bold">Total</span>
-              <span className="text-2xl font-black text-gold">{courseDetails.price}</span>
+              <span className="text-2xl font-black text-[#f5a044]">{courseDetails.price}</span>
             </div>
           </div>
 

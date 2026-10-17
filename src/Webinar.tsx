@@ -655,7 +655,7 @@ const Webinar = () => {
 
   return (
 
-    <div className="min-h-screen bg-gradient-to-b from-[#1c1d1b] to-[#0d0e10] text-white overflow-hidden">
+    <div className="brand-page min-h-screen text-white overflow-hidden">
 
       <SEO
         title="SARMAK Webinar Workshop"
@@ -668,7 +668,7 @@ const Webinar = () => {
           NAVBAR
       ================================================== */}
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1c1d1b]/95 backdrop-blur-xl border-b border-white/10">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#11112d]/90 backdrop-blur-xl border-b border-white/10">
 
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
@@ -698,7 +698,7 @@ const Webinar = () => {
 
               <span className="block text-xs text-gold font-mono tracking-widest">
 
-                INNOVATE. TRANSFORM. EXCEL.
+                Learn what industry needs
 
               </span>
 
@@ -824,7 +824,7 @@ const Webinar = () => {
                 ================================================== */}
 
                 <div
-                  className="flex w-full h-[62px] rounded-lg border border-[#8a651d] bg-[#111] overflow-hidden focus-within:border-[#f0b82e] focus-within:shadow-[0_0_15px_rgba(240,184,46,0.12)]"
+                  className="flex w-full h-[62px] rounded-lg border border-[#f5a044]/40 bg-[#171739] overflow-hidden focus-within:border-[#f5a044] focus-within:shadow-[0_0_15px_rgba(245,160,68,0.12)]"
                 >
 
 
@@ -970,7 +970,7 @@ const Webinar = () => {
 
                 {/* DATE */}
 
-                <div className="rounded-xl border border-[#8a651d] bg-[#111] px-4 py-4 flex items-center gap-3">
+                <div className="rounded-xl border border-[#f5a044]/40 bg-[#171739] px-4 py-4 flex items-center gap-3">
 
                   <span className="text-2xl shrink-0">
                     📅
@@ -999,7 +999,7 @@ const Webinar = () => {
 
                 {/* TIME */}
 
-                <div className="rounded-xl border border-[#8a651d] bg-[#111] px-4 py-4 flex items-center gap-3">
+                <div className="rounded-xl border border-[#f5a044]/40 bg-[#171739] px-4 py-4 flex items-center gap-3">
 
                   <span className="text-2xl shrink-0">
                     ⏰
@@ -1028,7 +1028,7 @@ const Webinar = () => {
 
                 {/* MODE */}
 
-                <div className="rounded-xl border border-[#8a651d] bg-[#111] px-4 py-4 flex items-center gap-3">
+                <div className="rounded-xl border border-[#f5a044]/40 bg-[#171739] px-4 py-4 flex items-center gap-3">
 
                   <span className="text-2xl shrink-0">
                     💻
@@ -1115,10 +1115,8 @@ const Webinar = () => {
                   </span>
 
 
-                  <span className="text-xs text-gold font-mono tracking-widest">
-
-                    INNOVATE. TRANSFORM. EXCEL.
-
+                  <span className="text-xs text-[#f5a044] tracking-wide">
+                    Learn what industry needs
                   </span>
 
                 </div>

@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+.brand-page {
+  background:
+    radial-gradient(ellipse at top, rgba(59, 76, 190, 0.2), transparent 45%),
+    linear-gradient(180deg, #11112d, #09091a);
+}
+
+.brand-page:not(.payment-page) input:not([type='checkbox']),
+.brand-page:not(.payment-page) select,
+.brand-page:not(.payment-page) textarea {
+  border-color: rgba(255, 255, 255, 0.16);
+  background-color: #171739;
+}
+
+.brand-page:not(.payment-page) input:not([type='checkbox']):focus,
+.brand-page:not(.payment-page) select:focus,
+.brand-page:not(.payment-page) textarea:focus {
+  border-color: #8795ff;
+  box-shadow: 0 0 0 2px rgba(135, 149, 255, 0.16);
+}
+
 @keyframes blink {
   0%, 100% {
     opacity: 1;

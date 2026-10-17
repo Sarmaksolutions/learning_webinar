@@ -52,7 +52,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1c1d1b] to-[#0d0e10] text-white overflow-hidden">
+    <div className="brand-page min-h-screen text-white overflow-hidden">
       <SEO 
         title="IT Infrastructure Training Courses - SARMAK Learning" 
         description="Enroll in SARMAK's 4-Week College Student IT Program or 6-Hour Advance AI in IT Infrastructure Course. Industry-ready training with expert mentorship."
@@ -60,13 +60,13 @@ export default function App() {
       />
 
       {/* --- ORIGINAL HEADER (Intact) --- */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1c1d1b]/95 backdrop-blur-xl border-b border-white/10">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#11112d]/90 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Logo className="h-12 w-auto transition-transform duration-300 hover:scale-105" />
             <div className="hidden sm:block">
               <span className="text-xl font-bold tracking-wider">SARMAK <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-lime-300 to-emerald-500">Learning Portal</span></span>
-              <span className="block text-xs text-gold font-mono tracking-widest">INNOVATE. TRANSFORM. EXCEL.</span>
+              <span className="block text-xs text-[#f5a044] tracking-wide">Learn what industry needs</span>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -96,36 +96,7 @@ export default function App() {
           </div>
         </section>
 
-{/* Navigation */}
-<nav className="fixed top-0 left-0 right-0 z-50 bg-[#1c1d1b]/95 backdrop-blur-xl border-b border-white/10">
-  <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <div className="flex items-center gap-3">
-      <Logo className="h-12 w-auto transition-transform duration-300 hover:scale-105" />
-      <div className="hidden sm:block">
-        <span className="text-xl font-bold tracking-wider">SARMAK <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-lime-300 to-emerald-500">Learning Portal</span></span>
-        <span className="block text-xs text-gold font-mono tracking-widest">INNOVATE. TRANSFORM. EXCEL.</span>
-      </div>
-    </div>
-    <div className="flex items-center gap-4">
-     {/*  <a href="https://sarmak.in" className="text-sm text-white/80 hover:text-gold transition-colors hidden lg:block">
-        Back to SARMAK →
-      </a> 
-      <Link to="/course-details" className="text-sm text-white/80 hover:text-gold transition-colors hidden md:block">
-        Course Details
-      </Link>
-      <Link to="/profile" className="text-sm text-white/80 hover:text-gold transition-colors hidden md:block">
-        Profile
-      </Link>*/}
-      
-
-      
-      <Link to="/login" className="btn-outline text-sm inline-flex items-center gap-2">
-        Login
-      </Link>
-    </div>
-  </div>
-</nav>
-      {/* Blinking Webinar Registration Label */}
+      {/* Blinking Webinar Registration Label 
       <Link 
         to="/webinar" 
         className="fixed top-24 right-6 z-40 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold blink group animate-pulse-glow"
@@ -137,7 +108,7 @@ export default function App() {
              Register for Webinar ₹9 
           </span>
         </span>
-      </Link>
+      </Link> */}
       
         {/* Course Selection Cards */}
         <section className="px-6 max-w-7xl mx-auto mb-16">
@@ -253,7 +224,7 @@ export default function App() {
                 <Logo className="h-14 w-auto" />
                 <div>
                   <span className="text-2xl font-bold text-white tracking-wider block">SARMAK</span>
-                  <span className="text-xs text-gold font-mono tracking-widest">INNOVATE. TRANSFORM. EXCEL.</span>
+                  <span className="text-xs text-[#f5a044] tracking-wide">Learn what industry needs</span>
                 </div>
               </a>
               <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-sm">
