@@ -8,10 +8,10 @@
     "netlify:dev": "netlify dev",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "netlify:dev": "netlify dev"
+    "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^13.1.0",
     "lucide-react": "^0.562.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
